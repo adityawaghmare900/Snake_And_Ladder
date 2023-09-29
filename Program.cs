@@ -1,4 +1,4 @@
-﻿namespace RepeatTillWin_UC4
+﻿namespace PlayerGetExactWinningPostion_UC5
 {
     internal class Program
     {
