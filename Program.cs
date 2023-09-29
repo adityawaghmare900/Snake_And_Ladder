@@ -1,13 +1,12 @@
-﻿namespace CheckForOption_UC3
+﻿namespace RepeatTillWin_UC4
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("------------Snake and Ladder game-------");
-            SnakLadder game = new SnakLadder();
+            SnakeLadder game = new SnakeLadder();
             game.Board();
         }
     }
-    
 }
