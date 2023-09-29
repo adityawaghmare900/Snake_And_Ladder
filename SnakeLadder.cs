@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlayerGetExactWinningPostion_UC5
+namespace NumberOfTimes_UC6
 {
-    public class SnakeLadder
+    internal class SnakeLadder
     {
         readonly Random random = new Random();
 
@@ -17,27 +17,27 @@ namespace PlayerGetExactWinningPostion_UC5
             int checkwin;
             Console.WriteLine($"player One position is {playerOne}");
 
-            while (playerOne < 101) //loop until playerOne reachess 100
+            while (playerOne <= 100) //loop until playerOne reachess 100
             {
                 //check for win condition
                 checkwin = CheckWin(playerOne);
-                if(checkwin==1 )  //player has reached exact 100th position
+                if (checkwin == 1)  //player has reached exact 100th position
                 {
-                    Console.WriteLine($"playerOOne wins!!"); //display win message
+                    Console.WriteLine($"playerOne wins!!"); //display win message
                     break; //end the game
                 }
 
-               if(checkwin==2)
+                if (checkwin == 2)
                 {
                     position = 0;
                 }
 
-               else
+                else
                 {
                     position = RollDie();
                 }
 
-             
+
                 //No play condition
                 if (position == 0)
                 {
@@ -75,7 +75,7 @@ namespace PlayerGetExactWinningPostion_UC5
 
         public int CheckWin(int playerOne)
         {
-            if(playerOne == 100)
+            if (playerOne == 100)
             {
                 return 1;
             }
@@ -87,11 +87,13 @@ namespace PlayerGetExactWinningPostion_UC5
                 return 0;
         }
 
+        int diceThrown = 0;
         public int RollDie()
         {
             int dice;
             int check;
             dice = random.Next(1, 7);
+            diceThrown++;
             Console.WriteLine($"Dice={dice}");
             check = CheckPlay();
             //roll die to produce random number between 1-6
@@ -121,6 +123,7 @@ namespace PlayerGetExactWinningPostion_UC5
         public void Board()
         {
             Start();
+            Console.WriteLine($"Number o Times Dice Thrown: {diceThrown}");
         }
     }
 }

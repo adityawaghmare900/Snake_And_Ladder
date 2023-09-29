@@ -1,4 +1,5 @@
-﻿namespace PlayerGetExactWinningPostion_UC5
+﻿
+namespace NumberOfTimes_UC6
 {
     internal class Program
     {
