@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game_Start_UC1
+namespace Player_rolls_UC2
 {
-    public class SnakeLadder
+    internal class SnakeLadder
     {
         public void Start()
         {
@@ -14,7 +14,16 @@ namespace Game_Start_UC1
             int playerOne;
 
             playerOne = position;
-            Console.WriteLine("player One position is {playerOne}");
+            Console.WriteLine($"player One position is {playerOne}");
+            playerOne = RollDie();
+            Console.WriteLine($"player One roller die and get position {playerOne}");
+        }
+
+        public int RollDie()
+        {
+            Random random = new Random();
+            int dice = random.Next(1, 7);
+            return dice;
         }
 
         public void Board()
@@ -23,6 +32,3 @@ namespace Game_Start_UC1
         }
     }
 }
-           
-
-       
