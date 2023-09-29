@@ -1,78 +1,140 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NumberOfTimes_UC6
+namespace PlayWithTwoPlayer_UC7
 {
     internal class SnakeLadder
     {
         readonly Random random = new Random();
-
-        public void Start()
+        public int PlayGame(int playerPosition, int turn)
         {
-            int position = 0;
-            int playerOne = 3;
             int checkwin;
-            Console.WriteLine($"player One position is {playerOne}");
-
-            while (playerOne <= 100) //loop until playerOne reachess 100
+            int position;
+            while(playerPosition != WIN_POSITION)
             {
-                //check for win condition
-                checkwin = CheckWin(playerOne);
-                if (checkwin == 1)  //player has reached exact 100th position
+                checkwin=CheckWin(playerPosition);
+                if(checkwin ==1 && turn == 1)
                 {
-                    Console.WriteLine($"playerOne wins!!"); //display win message
-                    break; //end the game
+                    Console.WriteLine($"player One wins!!");
+                    break;
                 }
-
-                if (checkwin == 2)
+                if(checkwin ==1 && turn == 0)
+                {
+                    Console.WriteLine($"player Two wins!!");
+                    break;
+                }
+                if(checkwin==2)
                 {
                     position = 0;
                 }
-
                 else
                 {
                     position = RollDie();
                 }
 
-
-                //No play condition
-                if (position == 0)
+                if(position == 0)
                 {
                     Console.WriteLine("its a no play");
-                    playerOne += position; //player get no play then remain at same place
+                    playerPosition += position;
                 }
 
-                //snake condition
-                if (playerOne == 0 && position < 0) //when player is at start
+                if(playerPosition==0 && position < 0)
                 {
-                    Console.WriteLine("its a snake bite @0");
-                    playerOne = 0; //it player gets snake bite player remian at same place
+                    Console.WriteLine("its a snake bit @0");
+                    playerPosition = 0;
                 }
-
-                if (playerOne > 0 && position < 0)
+                if(playerPosition>0 && position< 0)
                 {
                     Console.WriteLine("its a snake bite");
-                    playerOne += position; //if player is at position less than 6 and gets snake bite
-                    if (playerOne < 0)
+                    playerPosition += position;
+                    if(playerPosition<0)
                     {
-                        //i player position is below 0
-                        playerOne = 0;
+                        playerPosition = 0;
                     }
                 }
-
-                //ladder condition
                 if (position > 0)
                 {
                     Console.WriteLine("its a ladder");
-                    playerOne += position;
+                    playerPosition += position;
                 }
-                Console.WriteLine($"player one roos die and get position {playerOne}");
+                if (playerPosition > WIN_POSITION)
+                {
+                    playerPosition -= position;
+                }
+                if(turn == 1)
+                {
+                    Console.WriteLine($"Player One rolls die and gets position {playerPosition}");
+                    break;
+                }
+                if(turn == 0)
+                {
+                    Console.WriteLine($"Player Two rolls die and get position {playerPosition}");
+                    break;
+                }
             }
+            return playerPosition;
         }
 
+        const int WIN_POSITION = 100;
+        const int START_POSITION = 0;
+
+        public void Start()
+        {
+            //implementing single player start at 0
+            //variables
+            int player; //record new position o both player
+            int playerOne = START_POSITION, playerTwo = START_POSITION;
+            Console.WriteLine($"player One position is {playerOne}");
+            Console.WriteLine($"player Two position is {playerTwo}");
+
+            //now to make turn or player one and player two creating an ininite loop
+            int turn = 1;
+            while (true)
+            {
+                if (turn == 1)
+                {
+                    Console.WriteLine("Player one turn");
+                    player = PlayGame(playerOne, turn);
+                    turn = 0;
+
+                    if (player > playerOne)
+                    {
+                        turn = 1;
+                    }
+                    playerOne = player;
+                }
+
+                if (playerOne == WIN_POSITION)
+                {
+                    Console.WriteLine("==========PLAYER ONE WINS===============");
+                    break;
+                }
+                if (turn == 0)
+                {
+                    //playerTwo Turn
+                    Console.WriteLine("PLAYE TWO TURN");
+                    player = PlayGame(playerTwo, turn); //passing player Two's position and recording back new position
+                    turn = 1; //switch back to player one
+
+                    if (player > playerTwo)
+                    {
+                        turn = 0;
+                    }
+                    playerTwo = player; //recording player Two's position
+                }
+
+                if (playerTwo == WIN_POSITION)
+                {
+                    Console.WriteLine("=========PLAYER TWO WINS==========");
+                    break;
+                }
+
+            }
+        }
         public int CheckWin(int playerOne)
         {
             if (playerOne == 100)

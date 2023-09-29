@@ -1,5 +1,4 @@
-﻿
-namespace NumberOfTimes_UC6
+﻿namespace PlayWithTwoPlayer_UC7
 {
     internal class Program
     {
